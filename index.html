@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cristina Econômica</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f5f5;
+    color: #222;
+}
+
+/* CABEÇALHO */
+header {
+    background: linear-gradient(135deg, #ee4d2d, #ff7043);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 3px 15px rgba(0,0,0,.18);
+}
+
+.header {
+    max-width: 1250px;
+    margin: auto;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: max-content;
+}
+
+.logo-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    background: rgba(255,255,255,.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+}
+
+.logo h1 {
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.logo small {
+    font-size: 11px;
+    opacity: .9;
+}
+
+/* PESQUISA */
+.search {
+    flex: 1;
+    display: flex;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.search input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 14px;
+    font-size: 15px;
+}
+
+.search button {
+    width: 55px;
+    border: none;
+    background: white;
+    cursor: pointer;
+    font-size: 19px;
+}
+
+/* BOTÃO ADMIN */
+.admin {
+    background: white;
+    color: #ee4d2d;
+    border: none;
+    border-radius: 9px;
+    padding: 12px 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* BANNER */
+.hero {
+    max-width: 1250px;
+    margin: 22px auto;
+    padding: 0 20px;
+}
+
+.banner {
+    min-height: 250px;
+    border-radius: 20px;
+    padding: 35px;
+    display: flex;
+    align-items: center;
+    background:
+        linear-gradient(90deg, rgba(0,0,0,.75), rgba(0,0,0,.25)),
+        url("https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1600&q=85");
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+.banner-content {
+    max-width: 650px;
+}
+
+.banner span {
+    display: inline-block;
+    background: #ee4d2d;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.banner h2 {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.banner p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* CATEGORIAS */
+.categories {
+    max-width: 1250px;
+    margin: 20px auto;
+    padding: 0 20px;
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+}
+
+.category {
+    border: none;
+    background: white;
+    padding: 11px 18px;
+    border-radius: 25px;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+.category:hover,
+.category.active {
+    background: #ee4d2d;
+    color: white;
+}
+
+/* PRODUTOS */
+main {
+    max-width: 1250px;
+    margin: auto;
+    padding: 0 20px 50px;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 25px 0 15px;
+}
+
+.title h2 {
+    font-size: 24px;
+}
+
+.count {
+    color: #777;
+    font-size: 14px;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.product {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0,0,0,.08);
+    transition: .2s;
+}
+
+.product:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,.15);
+}
+
+.product-image {
+    height: 220px;
+    position: relative;
+    background: #eee;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.offer {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #ee4d2d;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.product-info {
+    padding: 14px;
+}
+
+.product-name {
+    font-weight: bold;
+    height: 40px;
+    line-height: 1.3;
+    overflow: hidden;
+}
+
+.rating {
+    color: #f59e0b;
+    margin: 8px 0;
+    font-size: 13px;
+}
+
+.price {
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.old-price {
+    color: #999;
+    font-size: 13px;
+    text-decoration: line-through;
+    margin-left: 6px;
+    font-weight: normal;
+}
+
+.buy {
+    display: block;
+    text-align: center;
+    background: #ee4d2d;
+    color: white;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+.buy:hover {
+    background: #d83e21;
+}
+
+/* SEM PRODUTOS */
+.empty {
+    background: white;
+    padding: 45px;
+    border-radius: 12px;
+    text-align: center;
+    color: #777;
+    grid-column: 1 / -1;
+}
+
+/* RODAPÉ */
+footer {
+    background: #171717;
+    color: #aaa;
+    text-align: center;
+    padding: 30px 20px;
+    line-height: 1.7;
+}
+
+footer strong {
+    color: white;
+}
+
+/* CELULAR */
+@media (max-width: 950px) {
+    .products {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .banner h2 {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .header {
+        flex-wrap: wrap;
+        padding: 12px;
+    }
+
+    .logo {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .search {
+        width: 100%;
+        order: 2;
+    }
+
+    .admin {
+        width: 100%;
+        order: 3;
+    }
+
+    .hero {
+        padding: 0 12px;
+    }
+
+    .banner {
+        min-height: 230px;
+        padding: 25px 20px;
+    }
+
+    .banner h2 {
+        font-size: 28px;
+    }
+
+    .banner p {
+        font-size: 14px;
+    }
+
+    .categories {
+        padding: 0 12px;
+    }
+
+    main {
+        padding: 0 12px 40px;
+    }
+
+    .products {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .product-image {
+        height: 175px;
+    }
+}
+
+@media (max-width: 390px) {
+
+    .products {
+        grid-template-columns: 1fr;
+    }
+
+    .product-image {
+        height: 230px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="header">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            🛒
+        </div>
+
+        <div>
+            <h1>Cristina Econômica</h1>
+            <small>Ofertas que cabem no bolso</small>
+        </div>
+
+    </div>
+
+    <div class="search">
+
+        <input
+            id="search"
+            type="search"
+            placeholder="Pesquisar produtos..."
+        >
+
+        <button onclick="mostrarProdutos()">
+            🔎
+        </button>
+
+    </div>
+
+    <!-- POR ENQUANTO É APENAS VISUAL.
+         DEPOIS VAMOS PROTEGER ESTA ÁREA COM LOGIN. -->
+
+    <button class="admin" onclick="abrirAdmin()">
+        ⚙️ Administrador
+    </button>
+
+</div>
+
+</header>
+
+
+<section class="hero">
+
+    <div class="banner">
+
+        <div class="banner-content">
+
+            <span>
+                🔥 OFERTAS SELECIONADAS
+            </span>
+
+            <h2>
+                Cristina Econômica
+            </h2>
+
+            <p>
+                Encontre produtos bons e baratos em um só lugar.
+                Aproveite as melhores ofertas e compre com poucos cliques.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<div
+    class="categories"
+    id="categories">
+</div>
+
+
+<main>
+
+    <div class="title">
+
+        <h2>
+            Produtos em destaque
+        </h2>
+
+        <span
+            class="count"
+            id="count">
+        </span>
+
+    </div>
+
+
+    <div
+        class="products"
+        id="products">
+    </div>
+
+</main>
+
+
+<footer>
+
+    <strong>
+        Cristina Econômica
+    </strong>
+
+    <br>
+
+    Vitrine de produtos afiliados.
+
+    <br>
+
+    As compras são realizadas diretamente no site parceiro.
+
+</footer>
+
+
+<script>
+
+/*
+====================================================
+PRODUTOS TEMPORÁRIOS
+====================================================
+
+Depois vamos retirar estes produtos e buscar tudo
+diretamente do banco de dados online.
+
+*/
+
+const produtos = [
+
+    {
+        id: 1,
+
+        nome: "Fone Bluetooth Sem Fio",
+
+        categoria: "Eletrônicos",
+
+        preco: "59,90",
+
+        antigo: "89,90",
+
+        nota: "4.8",
+
+        imagem:
+        "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=700&q=80",
+
+        link:
+        "#"
+    },
+
+
+    {
+        id: 2,
+
+        nome: "Smartwatch Esportivo",
+
+        categoria: "Eletrônicos",
+
+        preco: "79,90",
+
+        antigo: "129,90",
+
+        nota: "4.7",
+
+        imagem:
+        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=700&q=80",
+
+        link:
+        "#"
+    },
+
+
+    {
+        id: 3,
+
+        nome: "Mochila Casual Impermeável",
+
+        categoria: "Moda",
+
+        preco: "69,90",
+
+        antigo: "99,90",
+
+        nota: "4.9",
+
+        imagem:
+        "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=700&q=80",
+
+        link:
+        "#"
+    },
+
+
+    {
+        id: 4,
+
+        nome: "Tênis Casual Confortável",
+
+        categoria: "Moda",
+
+        preco: "119,90",
+
+        antigo: "179,90",
+
+        nota: "4.8",
+
+        imagem:
+        "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=700&q=80",
+
+        link:
+        "#"
+    },
+
+
+    {
+        id: 5,
+
+        nome: "Luminária LED de Mesa",
+
+        categoria: "Casa",
+
+        preco: "39,90",
+
+        antigo: "59,90",
+
+        nota: "4.7",
+
+        imagem:
+        "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=700&q=80",
+
+        link:
+        "#"
+    },
+
+
+    {
+        id: 6,
+
+        nome: "Garrafa Térmica Inox",
+
+        categoria: "Casa",
+
+        preco: "49,90",
+
+        antigo: "74,90",
+
+        nota: "4.9",
+
+        imagem:
+        "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=700&q=80",
+
+        link:
+        "#"
+    }
+
+];
+
+
+let categoriaAtual = "Todos";
+
+
+/* MOSTRAR CATEGORIAS */
+
+function criarCategorias() {
+
+    const categorias = [
+
+        "Todos",
+
+        ...new Set(
+            produtos.map(
+                produto => produto.categoria
+            )
+        )
+
+    ];
+
+
+    document.getElementById("categories").innerHTML =
+
+        categorias.map(categoria => `
+
+            <button
+
+                class="category
+                ${categoria === categoriaAtual ? "active" : ""}"
+
+                onclick="filtrarCategoria('${categoria}')">
+
+                ${categoria}
+
+            </button>
+
+        `).join("");
+
+}
+
+
+/* FILTRAR CATEGORIA */
+
+function filtrarCategoria(categoria) {
+
+    categoriaAtual = categoria;
+
+    criarCategorias();
+
+    mostrarProdutos();
+
+}
+
+
+/* MOSTRAR PRODUTOS */
+
+function mostrarProdutos() {
+
+    const pesquisa =
+
+        document
+        .getElementById("search")
+        .value
+        .toLowerCase()
+        .trim();
+
+
+    const lista = produtos.filter(produto => {
+
+        const categoriaOK =
+
+            categoriaAtual === "Todos" ||
+
+            produto.categoria === categoriaAtual;
+
+
+        const pesquisaOK =
+
+            produto.nome
+            .toLowerCase()
+            .includes(pesquisa);
+
+
+        return categoriaOK && pesquisaOK;
+
+    });
+
+
+    document.getElementById("count").textContent =
+
+        lista.length + " produto(s)";
+
+
+    if (lista.length === 0) {
+
+        document.getElementById("products").innerHTML = `
+
+            <div class="empty">
+
+                Nenhum produto encontrado.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    document.getElementById("products").innerHTML =
+
+        lista.map(produto => `
+
+            <article class="product">
+
+                <div class="product-image">
+
+                    <img
+
+                        src="${produto.imagem}"
+
+                        alt="${produto.nome}">
+
+                    <span class="offer">
+
+                        OFERTA
+
+                    </span>
+
+                </div>
+
+
+                <div class="product-info">
+
+                    <div class="product-name">
+
+                        ${produto.nome}
+
+                    </div>
+
+
+                    <div class="rating">
+
+                        ★★★★★
+
+                        <span>
+
+                            ${produto.nota}
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="price">
+
+                        R$ ${produto.preco}
+
+                        <span class="old-price">
+
+                            R$ ${produto.antigo}
+
+                        </span>
+
+                    </div>
+
+
+                    <a
+
+                        class="buy"
+
+                        href="${produto.link}"
+
+                        target="_blank"
+
+                        rel="noopener noreferrer">
+
+                        Comprar agora →
+
+                    </a>
+
+                </div>
+
+            </article>
+
+        `).join("");
+
+}
+
+
+/*
+====================================================
+ADMINISTRADOR
+====================================================
+
+Ainda não existe login aqui.
+
+No próximo passo vamos criar:
+
+/admin
+
+LOGIN
+
+↓ 
+
+Banco de dados
+
+↓ 
+
+Produtos
+
+↓ 
+
+Categorias
+
+*/
+
+function abrirAdmin() {
+
+    alert(
+
+        "Área administrativa será configurada no próximo passo."
+
+    );
+
+}
+
+
+/* PESQUISA AO DIGITAR */
+
+document
+.getElementById("search")
+.addEventListener(
+
+    "input",
+
+    mostrarProdutos
+
+);
+
+
+/* INICIALIZAÇÃO */
+
+criarCategorias();
+
+mostrarProdutos();
+
+</script>
+
+</body>
+          </html>
